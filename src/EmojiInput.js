@@ -368,16 +368,19 @@ class EmojiInput extends React.PureComponent {
     _rowRenderer(type, data) {
         switch (type) {
             case ViewTypes.CATEGORY:
-                return (
-                    <Text
-                        style={[
-                            styles.categoryText,
-                            { ...this.props.categoryLabelTextStyle }
-                        ]}
-                    >
-                        {data.title}
-                    </Text>
-                );
+                if (this.props.horizontalMode) {
+                    return (
+                        <Text
+                            style={[
+                                styles.categoryText,
+                                { ...this.props.categoryLabelTextStyle }
+                            ]}
+                        >
+                            {data.title}
+                        </Text>
+                    );
+                }
+                return null;
             case ViewTypes.EMOJI:
                 return (
                     <Emoji
@@ -392,8 +395,8 @@ class EmojiInput extends React.PureComponent {
 
     handleCategoryPress = key => {
         this._recyclerListView.scrollToOffset(
-            0,
-            category[categoryIndexMap[key].idx].y + 1,
+            this.props.horizontalMode ? category[categoryIndexMap[key].idx].y + 1 : 0,
+            this.props.horizontalMode ? 0 : category[categoryIndexMap[key].idx].y + 1,
             false
         );
     };
