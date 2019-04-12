@@ -506,7 +506,7 @@ class EmojiInput extends React.PureComponent {
                     rowRenderer={this._rowRenderer}
                     ref={component => (this._recyclerListView = component)}
                     onScroll={this.handleScroll}
-                    isHorizonal={this.props.horizontalMode}
+                    isHorizontal={this.props.horizontalMode}
                 />
                 {!this.state.searchQuery &&
                     this.props.showCategoryTab && (
