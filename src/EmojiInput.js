@@ -368,7 +368,7 @@ class EmojiInput extends React.PureComponent {
     _rowRenderer(type, data) {
         switch (type) {
             case ViewTypes.CATEGORY:
-                if (this.props.horizontalMode) {
+                if (!this.props.horizontalMode) {
                     return (
                         <Text
                             style={[
