@@ -506,6 +506,7 @@ class EmojiInput extends React.PureComponent {
                     rowRenderer={this._rowRenderer}
                     ref={component => (this._recyclerListView = component)}
                     onScroll={this.handleScroll}
+                    isHorizonal={this.props.horizontalMode}
                 />
                 {!this.state.searchQuery &&
                     this.props.showCategoryTab && (
@@ -633,7 +634,8 @@ EmojiInput.defaultProps = {
     },
     emojiFontSize: 40,
     categoryFontSize: 20,
-    resetSearch: false
+    resetSearch: false,
+    horizontalMode: false,
 };
 
 EmojiInput.propTypes = {
@@ -657,7 +659,8 @@ EmojiInput.propTypes = {
     enableFrequentlyUsedEmoji: PropTypes.bool,
     numFrequentlyUsedEmoji: PropTypes.number,
     defaultFrequentlyUsedEmoji: PropTypes.arrayOf(PropTypes.string),
-    resetSearch: PropTypes.bool
+    resetSearch: PropTypes.bool,
+    horizontalMode: PropTypes.bool,
 };
 
 const styles = {
