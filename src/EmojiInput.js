@@ -162,8 +162,12 @@ class EmojiInput extends React.PureComponent {
             (type, dim) => {
                 switch (type) {
                     case ViewTypes.CATEGORY:
-                        dim.height = this.props.categoryLabelHeight;
-                        dim.width = props.width;
+                        if (!this.props.horizontalMode) {
+                            dim.height = this.props.categoryLabelHeight;
+                            dim.width = props.width;
+                        } else {
+                            dim.height = dim.width = 0;
+                        }
                         break;
                     case ViewTypes.EMOJI:
                         dim.height = dim.width = this.emojiSize;
