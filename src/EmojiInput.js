@@ -188,12 +188,14 @@ class EmojiInput extends React.PureComponent {
             frequentlyUsedEmoji: {},
             previousLongestQuery: '',
             selectedEmoji: null,
-            offsetY: 0
+            offsetY: 0,
+            loading: true,
         };
     }
 
     componentDidMount() {
         this.search();
+        setTimeout(() => this.setState({loading: false}), 1500);
     }
 
     componentDidUpdate(prevProps, prevStates) {
@@ -515,6 +517,15 @@ class EmojiInput extends React.PureComponent {
                     onScroll={this.handleScroll}
                     isHorizontal={this.props.horizontalMode}
                 />
+                {this.state.loading && (
+                    <View style={{
+                        flex: 1,
+                        alignItems: 'center',
+                        alignContent: 'center',
+                    }}>
+                        <ActivityIndicator size={'large'}/>
+                    </View>
+                )}
                 {!this.state.searchQuery &&
                     this.props.showCategoryTab && (
                         <TouchableWithoutFeedback>
