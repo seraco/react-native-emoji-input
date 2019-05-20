@@ -286,7 +286,7 @@ class EmojiInput extends React.PureComponent {
         }
     };
 
-    emojiRenderer = emoji => {
+    emojiRenderer = emojis => {
         let dataProvider = new DataProvider((e1, e2) => {
             return e1.char !== e2.char;
         });
@@ -302,8 +302,9 @@ class EmojiInput extends React.PureComponent {
             .map((v, k) => [
                 { char: category[k].key, categoryMarker: true, ...category[k] }
             ]);
-        _(emoji)
+        _(emojis)
             .values()
+            .filter(emoji => _.every(this.props.filterFunctions, fn => fn(emoji)))
             .each(e => {
                 if (_.has(categoryIndexMap, e.category)) {
                     tempEmoji[categoryIndexMap[e.category].idx].push(e);
@@ -643,6 +644,7 @@ EmojiInput.defaultProps = {
     categoryFontSize: 20,
     resetSearch: false,
     horizontalMode: false,
+    filterFunctions: [],
 };
 
 EmojiInput.propTypes = {
@@ -668,6 +670,7 @@ EmojiInput.propTypes = {
     defaultFrequentlyUsedEmoji: PropTypes.arrayOf(PropTypes.string),
     resetSearch: PropTypes.bool,
     horizontalMode: PropTypes.bool,
+    filterFunctions: PropTypes.arrayOf(PropTypes.func)
 };
 
 const styles = {
